@@ -11,17 +11,17 @@
 #
 class pdns::recursor (
 
-  $package_name             = pdns::params::recursor_package_name,
+  $package_name             = $pdns::params::recursor_package_name,
   $package_ensure           = 'present',
 
-  $service_name             = pdns::params::recursor_service_name,
+  $service_name             = $pdns::params::recursor_service_name,
   $service_ensure           = 'running',
   $service_enable           = true,
 
-  $config_file_path         = pdns::params::recursor_config_file_path,
-  $config_file_owner        = pdns::params::recursor_config_file_owner,
-  $config_file_group        = pdns::params::recursor_config_file_group,
-  $config_file_mode         = pdns::params::recursor_config_file_mode,
+  $config_file_path         = $pdns::params::recursor_config_file_path,
+  $config_file_owner        = $pdns::params::recursor_config_file_owner,
+  $config_file_group        = $pdns::params::recursor_config_file_group,
+  $config_file_mode         = $pdns::params::recursor_config_file_mode,
   $config_file_require      = 'Package[pdns::recursor]',
   $config_file_notify       = 'Service[pdns::recursor]',
   $config_file_source       = undef,
@@ -29,10 +29,10 @@ class pdns::recursor (
   $config_file_content      = undef,
   $config_file_options_hash = { },
 
-  $config_dir_path          = pdns::params::recursor_config_dir_path,
-  $config_dir_owner         = pdns::params::recursor_config_dir_owner,
-  $config_dir_group         = pdns::params::recursor_config_dir_group,
-  $config_dir_mode          = pdns::params::recursor_config_dir_mode,
+  $config_dir_path          = $pdns::params::recursor_config_dir_path,
+  $config_dir_owner         = $pdns::params::recursor_config_dir_owner,
+  $config_dir_group         = $pdns::params::recursor_config_dir_group,
+  $config_dir_mode          = $pdns::params::recursor_config_dir_mode,
   $config_dir_source        = undef,
   $config_dir_purge         = false,
   $config_dir_recurse       = true,
