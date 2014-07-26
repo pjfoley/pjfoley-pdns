@@ -1,0 +1,8 @@
+name          'pjfoley-pdns'
+version       '0.0.1'
+source        'https://github.com/pjfoley/pjfoley-pdns'
+author        'Peter Foley <peter@ifoley.id.au>'
+license       'Apache License, Version 2.0'
+summary       'This module installs and manages pdns'
+dependency    'puppetlabs/stdlib'
+dependency    'example42/stdmod'
