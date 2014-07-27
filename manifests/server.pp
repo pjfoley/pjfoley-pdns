@@ -15,6 +15,8 @@ class pdns::server (
   $package_ensure           = 'present',
 
   $service_name             = $pdns::params::server_service_name,
+  $service_process_user     = $pdns::params::server_service_process_user,
+  $service_process_group    = $pdns::params::server_service_process_group,
   $service_ensure           = 'running',
   $service_enable           = true,
 

@@ -14,6 +14,14 @@ class pdns::params {
     default => 'pdns',
   }
 
+  $server_service_process_user = $::osfamily ? {
+    default => 'pdns',
+  }
+
+  $server_service_process_group = $::osfamily ? {
+    default => 'pdns',
+  }
+
   $server_config_file_path = $::osfamily ? {
     'Debian' => '/etc/powerdns/pdns.conf',
     default  => '/etc/pdns/pdns.conf',
