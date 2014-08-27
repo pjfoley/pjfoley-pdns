@@ -83,8 +83,8 @@ class pdns::params {
   }
 
   $recursor_config_dir_path = $::osfamily ? {
-    'Debian' => '/etc/powerdns',
-    default  => '/etc/pdns-recursor',
+    'Debian' => '/etc/powerdns/pdns.d',
+    default  => '/etc/pdns-recursor/pdns.d',
   }
 
   $recursor_config_dir_mode = $::osfamily ? {
