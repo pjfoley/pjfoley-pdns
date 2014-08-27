@@ -40,8 +40,8 @@ class pdns::params {
   }
 
   $server_config_dir_path = $::osfamily ? {
-    'Debian' => '/etc/powerdns',
-    default  => '/etc/pdns',
+    'Debian' => '/etc/powerdns/pdns.d',
+    default  => '/etc/pdns/pdns.d',
   }
 
   $server_config_dir_mode = $::osfamily ? {
