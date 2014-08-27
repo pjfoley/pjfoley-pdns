@@ -120,7 +120,7 @@ class pdns::server (
     }
   }
 
-  if $pdns::server::config_dir_source {
+  if $pdns::server::config_dir_path {
     file { 'pdns.dir':
       ensure  => $pdns::server::config_dir_ensure,
       path    => $pdns::server::config_dir_path,

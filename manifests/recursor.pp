@@ -118,7 +118,7 @@ class pdns::recursor (
     }
   }
 
-  if $pdns::recursor::config_dir_source {
+  if $pdns::recursor::config_dir_path {
     file { 'recursor.dir':
       ensure  => $pdns::recursor::config_dir_ensure,
       path    => $pdns::recursor::config_dir_path,
