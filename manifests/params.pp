@@ -40,6 +40,11 @@ class pdns::params {
   }
 
   $server_config_dir_path = $::osfamily ? {
+    'Debian' => '/etc/powerdns',
+    default  => '/etc/pdns',
+  }
+
+  $server_config_fragments_dir_path = $::osfamily ? {
     'Debian' => '/etc/powerdns/pdns.d',
     default  => '/etc/pdns/pdns.d',
   }
@@ -83,6 +88,11 @@ class pdns::params {
   }
 
   $recursor_config_dir_path = $::osfamily ? {
+    'Debian' => '/etc/powerdns',
+    default  => '/etc/pdns-recursor',
+  }
+
+  $recursor_config_fragments_dir_path = $::osfamily ? {
     'Debian' => '/etc/powerdns/pdns.d',
     default  => '/etc/pdns-recursor/pdns.d',
   }

@@ -37,6 +37,14 @@ class pdns::recursor (
   $config_dir_purge         = false,
   $config_dir_recurse       = true,
 
+  $fragments_dir_path       = $pdns::params::recursor_config_fragments_dir_path,
+  $fragments_dir_owner      = $pdns::params::recursor_config_dir_owner,
+  $fragments_dir_group      = $pdns::params::recursor_config_dir_group,
+  $fragments_dir_mode       = $pdns::params::recursor_config_dir_mode,
+  $fragments_dir_source     = undef,
+  $fragments_dir_purge      = false,
+  $fragments_dir_recurse    = true,
+
   $conf_hash                = undef,
 
   $dependency_class         = undef,
@@ -58,15 +66,21 @@ class pdns::recursor (
   # Class variables validation and management
   validate_absolute_path($config_dir_path)
   validate_absolute_path($config_file_path)
+  validate_absolute_path($fragments_dir_path)
   validate_bool($service_enable)
   validate_bool($config_dir_recurse)
   validate_bool($config_dir_purge)
+  validate_bool($fragments_dir_recurse)
+  validate_bool($fragments_dir_purge)
   validate_string($config_file_owner)
   validate_string($config_file_group)
   validate_string($config_file_mode)
   validate_string($config_dir_owner)
   validate_string($config_dir_group)
   validate_string($config_dir_mode)
+  validate_string($fragments_dir_owner)
+  validate_string($fragments_dir_group)
+  validate_string($fragments_dir_mode)
   if $config_file_options_hash { validate_hash($config_file_options_hash) }
   if $monitor_options_hash { validate_hash($monitor_options_hash) }
   if $firewall_options_hash { validate_hash($firewall_options_hash) }
@@ -118,7 +132,7 @@ class pdns::recursor (
     }
   }
 
-  if $pdns::recursor::config_dir_path {
+  if $pdns::recursor::config_dir_source {
     file { 'recursor.dir':
       ensure  => $pdns::recursor::config_dir_ensure,
       path    => $pdns::recursor::config_dir_path,
@@ -129,6 +143,33 @@ class pdns::recursor (
       recurse => $pdns::recursor::config_dir_recurse,
       purge   => $pdns::recursor::config_dir_purge,
       force   => $pdns::recursor::config_dir_purge,
+      notify  => $pdns::recursor::manage_config_file_notify,
+      require => $pdns::recursor::config_file_require,
+    }
+  }
+  else
+  {
+    file { 'recursor.dir':
+      ensure  => $pdns::recursor::config_dir_ensure,
+      path    => $pdns::recursor::config_dir_path,
+      mode    => $pdns::recursor::config_dir_mode,
+      owner   => $pdns::recursor::config_dir_owner,
+      group   => $pdns::recursor::config_dir_group,
+      purge   => $pdns::recursor::config_dir_purge,
+      force   => $pdns::recursor::config_dir_purge,
+      notify  => $pdns::recursor::manage_config_file_notify,
+      require => $pdns::recursor::config_file_require,
+    }
+    file { 'recursor.frgmnts.dir':
+      ensure  => $pdns::recursor::fragments_dir_ensure,
+      path    => $pdns::recursor::fragments_dir_path,
+      mode    => $pdns::recursor::fragments_dir_mode,
+      owner   => $pdns::recursor::fragments_dir_owner,
+      group   => $pdns::recursor::fragments_dir_group,
+      source  => $pdns::recursor::fragments_dir_source,
+      recurse => $pdns::recursor::fragments_dir_recurse,
+      purge   => $pdns::recursor::fragments_dir_purge,
+      force   => $pdns::recursor::fragments_dir_purge,
       notify  => $pdns::recursor::manage_config_file_notify,
       require => $pdns::recursor::config_file_require,
     }

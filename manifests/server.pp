@@ -39,6 +39,14 @@ class pdns::server (
   $config_dir_purge         = false,
   $config_dir_recurse       = true,
 
+  $fragments_dir_path       = $pdns::params::server_config_fragments_dir_path,
+  $fragments_dir_owner      = $pdns::params::server_config_dir_owner,
+  $fragments_dir_group      = $pdns::params::server_config_dir_group,
+  $fragments_dir_mode       = $pdns::params::server_config_dir_mode,
+  $fragments_dir_source     = undef,
+  $fragments_dir_purge      = false,
+  $fragments_dir_recurse    = true,
+
   $conf_hash                = undef,
 
   $dependency_class         = undef,
@@ -60,15 +68,21 @@ class pdns::server (
   # Class variables validation and management
   validate_absolute_path($config_dir_path)
   validate_absolute_path($config_file_path)
+  validate_absolute_path($fragments_dir_path)
   validate_bool($service_enable)
   validate_bool($config_dir_recurse)
   validate_bool($config_dir_purge)
+  validate_bool($fragments_dir_recurse)
+  validate_bool($fragments_dir_purge)
   validate_string($config_file_owner)
   validate_string($config_file_group)
   validate_string($config_file_mode)
   validate_string($config_dir_owner)
   validate_string($config_dir_group)
   validate_string($config_dir_mode)
+  validate_string($fragments_dir_owner)
+  validate_string($fragments_dir_group)
+  validate_string($fragments_dir_mode)
   if $config_file_options_hash { validate_hash($config_file_options_hash) }
   if $monitor_options_hash { validate_hash($monitor_options_hash) }
   if $firewall_options_hash { validate_hash($firewall_options_hash) }
@@ -120,7 +134,7 @@ class pdns::server (
     }
   }
 
-  if $pdns::server::config_dir_path {
+  if $pdns::server::config_dir_source {
     file { 'pdns.dir':
       ensure  => $pdns::server::config_dir_ensure,
       path    => $pdns::server::config_dir_path,
@@ -131,6 +145,33 @@ class pdns::server (
       recurse => $pdns::server::config_dir_recurse,
       purge   => $pdns::server::config_dir_purge,
       force   => $pdns::server::config_dir_purge,
+      notify  => $pdns::server::manage_config_file_notify,
+      require => $pdns::server::config_file_require,
+    }
+  }
+  else
+  {
+    file { 'pdns.dir':
+      ensure  => $pdns::server::config_dir_ensure,
+      path    => $pdns::server::config_dir_path,
+      mode    => $pdns::server::config_dir_mode,
+      owner   => $pdns::server::config_dir_owner,
+      group   => $pdns::server::config_dir_group,
+      purge   => $pdns::server::config_dir_purge,
+      force   => $pdns::server::config_dir_purge,
+      notify  => $pdns::server::manage_config_file_notify,
+      require => $pdns::server::config_file_require,
+    }
+    file { 'pdns.frgmnts.dir':
+      ensure  => $pdns::server::fragments_dir_ensure,
+      path    => $pdns::server::fragments_dir_path,
+      mode    => $pdns::server::fragments_dir_mode,
+      owner   => $pdns::server::fragments_dir_owner,
+      group   => $pdns::server::fragments_dir_group,
+      source  => $pdns::server::fragments_dir_source,
+      recurse => $pdns::server::fragments_dir_recurse,
+      purge   => $pdns::server::fragments_dir_purge,
+      force   => $pdns::server::fragments_dir_purge,
       notify  => $pdns::server::manage_config_file_notify,
       require => $pdns::server::config_file_require,
     }
