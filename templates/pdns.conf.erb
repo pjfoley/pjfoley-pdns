@@ -5,52 +5,60 @@
 # allow-axfr-ips    If enabled, restrict zonetransfers to originate from these
 #                   IP addresses
 #
-allow-axfr-ips=<%= @config_file_options_hash['allow_axfr_ips'].join(',') %>
+allow-axfr-ips=<%= @config_file_options_hash['allow_axfr_ips'].join(',') -%>
 <% end -%>
-<% if @config_file_options_hash['allow-recursion'] -%>
+
+<%- if @config_file_options_hash['allow-recursion'] -%>
 #################################
 # allow-recursion	List of netmasks that are allowed to recurse
 #
 allow-recursion=<%= @config_file_options_hash['allow-recursion'] %>
 <% end -%>
-<% if @config_file_options_hash['allow_recursion_override'] -%>
+
+<%- if @config_file_options_hash['allow_recursion_override'] -%>
 #################################
 # allow-recursion-override   Local data even about hosts that don't exist will
 #                            override the internet. (on/off)
 #
 allow-recursion-override=<%= @config_file_options_hash['allow-recursion-override'] %>
 <% end -%>
-<% if @config_file_options_hash['cache-ttl'] -%>
+
+<%- if @config_file_options_hash['cache-ttl'] -%>
 #################################
 # cache-ttl	Seconds to store packets in the PacketCache
 #
 cache-ttl=<%= @config_file_options_hash['cache-ttl'] %>
 <% end -%>
-<% if @config_file_options_hash['chroot'] -%>
+
+<%- if @config_file_options_hash['chroot'] -%>
 #################################
 # chroot	If set, chroot to this directory for more security
 #
 chroot<%= @config_file_options_hash['chroot'] %>=
 <% end -%>
-<% if @config_file_options_hash['config-dir'] -%>
+
+<%- if @config_file_options_hash['config-dir'] -%>
 #################################
 # config-dir	Location of configuration directory (pdns.conf)
 #
 config-dir=<%= @config_file_options_hash['config-dir'] %>
 <% end -%>
-<% if @config_file_options_hash['config-name'] -%>
+
+<%- if @config_file_options_hash['config-name'] -%>
 #################################
 # config-name	Name of this virtual configuration - will rename the binary image
 #
 config-name=<%= @config_file_options_hash['config-name'] %>
 <% end -%>
-<% if @config_file_options_hash['control-console'] -%>
+
+<%- if @config_file_options_hash['control-console'] -%>
 #################################
 # control-console	Debugging switch - don't use
 #
 control-console=<%= @config_file_options_hash['control-console'] %>
 <% end -%>
-<% if @config_file_options_hash['daemon'] -%>
+
+<%- if @config_file_options_hash['daemon'] -%>
 #################################
 # daemon	Operate as a daemon
 #
