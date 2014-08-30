@@ -1,6 +1,6 @@
 #### WARNING: This file is managed by Puppet ####
 
-<% unless @config_file_options_hash['allow_axfr_ips'].empty? -%>
+<% if @config_file_options_hash['allow_axfr_ips'] -%>
 #################################
 # allow-axfr-ips    If enabled, restrict zonetransfers to originate from these
 #                   IP addresses
@@ -124,7 +124,7 @@ launch=<%= @config_file_options_hash['launch'] %>
 lazy-recursion=<%= @config_file_options_hash['lazy-recursion'] %>
 <% end -%>
 
-<% unless @config_file_options_hash['load-modules'].empty? -%>
+<% if @config_file_options_hash['load-modules'] -%>
 #################################
 # load-modules	Load this module - supply absolute or relative path
 #
@@ -264,19 +264,15 @@ recursive-cache-ttl=<%= @config_file_options_hash['recursive-cache-ttl'] %>
 recursor=<%= @config_file_options_hash['recursor'] %>
 <% end -%>
 
-<% if @config_file_options_hash['setgid'] -%>
 #################################
 # setgid	If set, change group id to this gid for more security
 #
-setgid=<%= @config_file_options_hash['setgid'] %>
-<% end -%>
+setgid=<%= @ervice_process_group %>
 
-<% if @config_file_options_hash['setuid'] -%>
 #################################
 # setuid	If set, change user id to this uid for more security
 #
-setuid=<%= @config_file_options_hash['setuid'] %>
-<% end -%>
+setuid=<%= @service_process_user %>
 
 <% if @config_file_options_hash['skip-cname'] -%>
 #################################
@@ -369,11 +365,13 @@ urlredirector=<%= @config_file_options_hash['urlredirector'] %>
 use-logfile=<%= @config_file_options_hash['use-logfile'] %>
 <% end -%>
 
-<% if @config_file_options_hash['local-address'] -%>
 #################################
 # local-address	Local IP address to which we bind
 #
+<% if @config_file_options_hash['local-address'] -%>
 local-address=<%= @config_file_options_hash['local-address'] %>
+<% else %>
+local-address=<%= scope.lookup('::ipaddress') %>
 <% end -%>
 
 <% if @config_file_options_hash['local-ipv6'] -%>
