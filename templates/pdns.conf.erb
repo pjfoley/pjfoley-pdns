@@ -371,7 +371,7 @@ use-logfile=<%= @config_file_options_hash['use-logfile'] %>
 <% if @config_file_options_hash['local-address'] -%>
 local-address=<%= @config_file_options_hash['local-address'] %>
 <% else %>
-local-address=<%= scope.lookup('::ipaddress') %>
+local-address=<%= scope.lookupvar('::ipaddress') %>
 <% end -%>
 
 <% if @config_file_options_hash['local-ipv6'] -%>
