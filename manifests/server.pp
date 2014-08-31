@@ -120,20 +120,6 @@ class pdns::server (
     }
   }
 
-  if $pdns::server::config_file_path {
-    file { 'pdns.conf':
-      ensure  => $pdns::server::config_file_ensure,
-      path    => $pdns::server::config_file_path,
-      mode    => $pdns::server::config_file_mode,
-      owner   => $pdns::server::config_file_owner,
-      group   => $pdns::server::config_file_group,
-      source  => $pdns::server::config_file_source,
-      content => $pdns::server::manage_config_file_content,
-      notify  => $pdns::server::manage_config_file_notify,
-      require => $pdns::server::config_file_require,
-    }
-  }
-
   if $pdns::server::config_dir_source {
     file { 'pdns.dir':
       ensure  => $pdns::server::config_dir_ensure,
@@ -173,7 +159,21 @@ class pdns::server (
       purge   => $pdns::server::fragments_dir_purge,
       force   => $pdns::server::fragments_dir_purge,
       notify  => $pdns::server::manage_config_file_notify,
-      require => $pdns::server::config_file_require,
+      require => [ $pdns::server::config_file_require, File['pdns.dir'] ],
+    }
+  }
+
+  if $pdns::server::config_file_path {
+    file { 'pdns.conf':
+      ensure  => $pdns::server::config_file_ensure,
+      path    => $pdns::server::config_file_path,
+      mode    => $pdns::server::config_file_mode,
+      owner   => $pdns::server::config_file_owner,
+      group   => $pdns::server::config_file_group,
+      source  => $pdns::server::config_file_source,
+      content => $pdns::server::manage_config_file_content,
+      notify  => $pdns::server::manage_config_file_notify,
+      require => [ $pdns::server::config_file_require, File['pdns.dir'] ],
     }
   }
 
