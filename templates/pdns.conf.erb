@@ -442,4 +442,6 @@ version-string=<%= @config_file_options_hash['version-string'] %>
 
 <% if @config_file_options_hash['include'] -%>
 include=<%= @config_file_options_hash['include'] %>
+<% else %>
+include=<%= @fragments_dir_path %>
 <% end -%>
