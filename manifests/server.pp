@@ -104,6 +104,7 @@ class pdns::server (
     $manage_service_enable = $service_enable
     $manage_service_ensure = $service_ensure
     $config_dir_ensure     = 'directory'
+    $fragments_dir_ensure  = 'directory'
     $config_file_ensure    = 'present'
   }
 
