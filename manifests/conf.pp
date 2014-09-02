@@ -82,9 +82,9 @@ define pdns::conf (
 
   $manage_path    = pickx($path, "${pdns::server::fragments_dir_path}/${name}")
   $manage_content = default_content($content, $template)
-  $manage_mode    = pickx($mode, $pdns::server::config_dir_mode)
-  $manage_owner   = pickx($owner, $pdns::server::config_dir_owner)
-  $manage_group   = pickx($group, $pdns::server::config_dir_group)
+  $manage_mode    = pickx($mode, $pdns::server::config_file_mode)
+  $manage_owner   = pickx($owner, $pdns::server::config_file_owner)
+  $manage_group   = pickx($group, $pdns::server::config_file_group)
   $manage_require = pickx($config_file_require, $pdns::server::config_file_require)
   $manage_notify  = $config_file_notify ? {
     'class_default' => $pdns::server::manage_config_file_notify,
