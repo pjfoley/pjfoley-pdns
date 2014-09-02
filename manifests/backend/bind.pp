@@ -119,10 +119,10 @@ class pdns::backend::bind (
     }
   }
 
-  if $pdns::backend::bind::config_file_path {
+  if $pdns::backend::bind::config_file_name {
     file { 'bind.conf':
       ensure  => $manage_file_ensure,
-      path    => $pdns::backend::bind::config_file_path,
+      path    => "${pdns::backend::bind::config_dir_path}/${pdns::backend::bind::config_file_name}",
       mode    => $pdns::backend::bind::config_file_mode,
       owner   => $pdns::backend::bind::config_file_owner,
       group   => $pdns::backend::bind::config_file_group,
