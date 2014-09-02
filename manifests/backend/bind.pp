@@ -77,11 +77,11 @@ class pdns::backend::bind (
   }
 
   if $config_dir_ensure == 'absent' {
-    $config_dir_ensure     = 'absent'
-    $config_file_ensure    = 'absent'
+    $manage_dir_ensure     = 'absent'
+    $manage_file_ensure    = 'absent'
   } else {
-    $config_dir_ensure     = 'directory'
-    $config_file_ensure    = 'present'
+    $manage_dir_ensure     = 'directory'
+    $manage_file_ensure    = 'present'
   }
 
   # Dependency class
@@ -91,7 +91,7 @@ class pdns::backend::bind (
 
   if $pdns::backend::bind::config_dir_source {
     file { 'bind.dir':
-      ensure  => $pdns::backend::bind::config_dir_ensure,
+      ensure  => $manage_dir_ensure,
       path    => $pdns::backend::bind::config_dir_path,
       mode    => $pdns::backend::bind::config_dir_mode,
       owner   => $pdns::backend::bind::config_dir_owner,
@@ -107,7 +107,7 @@ class pdns::backend::bind (
   else
   {
     file { 'bind.dir':
-      ensure  => $pdns::backend::bind::config_dir_ensure,
+      ensure  => $manage_dir_ensure,
       path    => $pdns::backend::bind::config_dir_path,
       mode    => $pdns::backend::bind::config_dir_mode,
       owner   => $pdns::backend::bind::config_dir_owner,
@@ -121,7 +121,7 @@ class pdns::backend::bind (
 
   if $pdns::backend::bind::config_file_path {
     file { 'bind.conf':
-      ensure  => $pdns::backend::bind::config_file_ensure,
+      ensure  => $manage_file_ensure,
       path    => $pdns::backend::bind::config_file_path,
       mode    => $pdns::backend::bind::config_file_mode,
       owner   => $pdns::backend::bind::config_file_owner,
