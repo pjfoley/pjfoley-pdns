@@ -1,5 +1,5 @@
 #
-# = Define: pdns::bind::conf
+# = Define: pdns::backend::bind::conf
 #
 # With this define you can manage any pdns configuration file
 #
@@ -58,7 +58,7 @@
 #   An hash of custom options to be used in templates to manage any key pairs of
 #   arbitrary settings.
 #
-define pdns::bind::conf (
+define pdns::backend::bind::conf (
 
   $source       = undef,
   $template     = undef,
