@@ -135,7 +135,7 @@ class pdns::backend::bind (
 
   # Extra classes
   if $conf_hash {
-    create_resources('pdns::conf', $conf_hash)
+    create_resources('pdns::bind::conf', $conf_hash)
   }
 
   if $pdns::backend::bind::my_class {
