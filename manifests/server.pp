@@ -145,6 +145,7 @@ class pdns::server (
       owner   => $pdns::server::config_dir_owner,
       group   => $pdns::server::config_dir_group,
       purge   => $pdns::server::config_dir_purge,
+      recurse => $pdns::server::config_dir_recurse,
       force   => $pdns::server::config_dir_purge,
       notify  => $pdns::server::manage_config_file_notify,
       require => $pdns::server::config_file_require,
